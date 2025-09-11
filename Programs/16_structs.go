@@ -33,6 +33,17 @@ import (
 // 	return o.amount + 100
 // }
 
+type customerStruct struct {
+	name  string
+	phone string
+}
+
+type orderStruct struct {
+	id       int
+	price    float32
+	customer customerStruct
+}
+
 func main() {
 	fmt.Println("------ Struct -----")
 
@@ -44,7 +55,7 @@ func main() {
 	// }
 
 	// fmt.Println("before Order -", order)
-	// order.createdAt = time.Now()
+	// order.createdAt = time.Now()l
 	// order.changeStatus("delivered")
 	// fmt.Println("after Order -", order)
 
@@ -59,11 +70,41 @@ func main() {
 	// fmt.Println("Constructor mimic -", order)
 
 	// struct without name: inline struct for using single time.
-	languages := struct {
-		name   string
-		isGood bool
-	}{"Go-Lang", true}
+	// languages := struct {
+	// 	name   string
+	// 	isGood bool
+	// }{"Go-Lang", true}
 
-	fmt.Println("Languages :", languages)
+	// fmt.Println("Languages :", languages)
+
+	// Struct embedding. or composition
+	customer := customerStruct{
+		name:  "Abhishek",
+		phone: "9399938409",
+	}
+
+	// order := orderStruct{
+	// 	id:       1,
+	// 	price:    199,
+	// 	customer: customer,
+	// }
+
+	order := orderStruct{
+		id:    1,
+		price: 199,
+		customer: customerStruct{
+			name:  "Abhishek",
+			phone: "9399938409",
+		},
+	}
+
+	fmt.Println("Customer: ", customer)
+	fmt.Println("Order: ", order)
+	fmt.Println("cust: ", order.customer)
+	// order.customer.name = "Abhishek"
+	// order.customer.phone = "12345"
+	fmt.Println("values added in cust: ", order.customer)
+	fmt.Println("name: ", order.customer.name)
+	fmt.Println("phone: ", order.customer.phone)
 
 }
